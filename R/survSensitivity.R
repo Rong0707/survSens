@@ -1,4 +1,4 @@
-survSensitivity <- function(t, d, Z, X, method, zetaT, zetaZ, theta = 0.5, B = 100){
+survSensitivity <- function(t, d, Z, X, method, zetaT = seq(-2,2,by=0.5), zetaZ = seq(-2,2,by=0.5), theta = 0.5, B = 100, Bem = 1000){
   library(survival)
   library(ggplot2)
   library(directlabels)
@@ -44,7 +44,7 @@ survSensitivity <- function(t, d, Z, X, method, zetaT, zetaZ, theta = 0.5, B = 1
         tau.em = emU_surv(t, d, Z, X, zetat = zetaT[j], zetaz = zetaZ[i], theta = theta)
         data1$p = tau.em$p
         nx = length(tau.em$z.coef) - 2
-        tau.em.final = surv_EM_variance(data1, zetat = zetaT[j], zetaz = zetaZ[i], z.coef = tau.em$z.coef[1:(nx+1)])
+        tau.em.final = surv_EM_variance(data1, zetat = zetaT[j], zetaz = zetaZ[i], z.coef = tau.em$z.coef[1:(nx+1)], B = Bem)
         tau1.res = rbind(tau1.res, data.frame(zetaz = zetaZ[i], zetat = zetaT[j], tau1 = tau.em.final$coef[nx+1], tau1.se = tau.em.final$coef.se[nx+1]))}
       else{
         print("No method found.")

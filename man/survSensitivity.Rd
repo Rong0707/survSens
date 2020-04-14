@@ -1,30 +1,28 @@
 \name{survSensitivity}
 \alias{survSensitivity}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Sensitivity plot of treatment effect to unmeasured confounding with survival outcomes.
+Sensitivity analysis of treatment effect to unmeasured confounding with survival outcomes.
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+\code{survSensitivity} performs dual-parameter sensitivity analysis of treatment effect to unmeasured confounding in observational studies with survival outcomes
 }
 \usage{
-survSensitivity(x)
+survSensitivity(t, d, Z, X, method, zetaT = seq(-2,2,by=0.5),
+zetaZ = seq(-2,2,by=0.5), theta = 0.5, B = 100, Bem = 1000)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-%%     ~~Describe \code{x} here~~
-}
+  \item{t}{survival outcomes.}
+  \item{d}{indicator of occurence of event, d == 0 means censoring.}
+  \item{Z}{indicator of treatment.}
+  \item{X}{pre-treatment covariates.}
+  \item{method}{needs to be one of \code{"stoEM_reg"}, \code{"stoEM_IPW"}, \code{"EM_reg"}.}
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+This function performs dual-parameter sensitivity analysis of treatment effect to unmeasured confounding by either drawing simulated potential confounders U from the conditional distribution of U given observed response, treatment and covariates or the Expecteation-Maximization method.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+\item{tau1}{a matrix with zetaz, zetat, tau1, tau1.se and t statistic.}
+\item{Sensplot}{a contour plot corresponding to the output tau1.}
 }
 \references{
 %% ~put references to the literature/web site here ~
@@ -51,7 +49,5 @@ function (x)
 {
   }
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{sensitivity analysis}
+\keyword{survival outcome}
