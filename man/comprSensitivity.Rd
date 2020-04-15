@@ -2,35 +2,45 @@
 \alias{comprSensitivity}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Sensitivity plot of treatment effect to unmeasured confounding with competing risks outcomes.
+Sensitivity analysis of treatment effect to unmeasured confounding with competing risks outcomes.
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+\code{comprSensitivity} performs a dual-parameter sensitivity analysis of treatment effect to unmeasured confounding in observational studies with competing risks outcomes
 }
 \usage{
-comprSensitivity(x)
+comprSensitivity(t, d, Z, X, method, zetaT = seq(-2,2,by=0.5),
+zetat2 = 0, zetaZ = seq(-2,2,by=0.5), theta = 0.5, B = 100, Bem = 1000)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-%%     ~~Describe \code{x} here~~
-}
+  \item{t}{survival outcomes with competing risks.}
+  \item{d}{indicator of occurrence of event, with \code{d == 0} denotes right censoring, \code{d==1} denotes event of interest, \code{d==2} denotes competing risk.}
+  \item{Z}{indicator of treatment.}
+  \item{X}{pre-treatment covariates, will be included in the model as measured confounders.}
+  \item{method}{needs to be one of \code{"stoEM_reg"}, \code{"stoEM_IPW"} and \code{"EM_reg"}.}
+  \item{zetaT}{range of coefficient of \eqn{U} in the event of interest response model.}
+  \item{zetat2}{value of coefficient of \eqn{U} in the competing risk response model}
+  \item{zetaZ}{range of coefficient of \eqn{U} in the treatment model.}
+  \item{theta}{marginal probability of \eqn{U=1}.}
+  \item{B}{iteration in the stochastic EM algorithm.}
+  \item{Bem}{iteration used to estimate variance-covariance matrix in the EM algorithm.}
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+This function performs a dual-parameter sensitivity analysis of treatment effect to unmeasured confounding by either drawing simulated potential confounders \eqn{U} from the conditional distribution of \eqn{U} given observed response, treatment and covariates or the Expectation-Maximization algorithm. We assume \eqn{U} is following \eqn{Bernoulli(\pi)} (default 0.5). Given \eqn{Z}, \eqn{X} and \eqn{U}, the hazard rate of jth type of failure of is modeled using the Cox proportional hazards (PH) regression:
+\deqn{\lambda_j (t|Z, X, U) = \lambda_{j0} (t) exp( \tau_j Z + X' \beta_j + \zeta_j U).}
+Given \eqn{X} and \eqn{U}, \eqn{Z} follows a generalized linear model:
+\deqn{P(Z=1|X, U) = \Phi(X' \beta_z + \zeta_z U).}
 }
+
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+\item{tau1}{a data.frame with zetaz, zetat1, zetat2, tau1, tau1.se and t statistic in the event of interest response model.}
+\item{tau2}{a data.frame with zetaz, zetat, zetat2, tau2, tau2.se and t statistic in the competing risks response model.}
+\item{Sensplot}{a contour plot corresponding to the output tau1.}
 }
 \references{
-%% ~put references to the literature/web site here ~
+Huang, R., Xu, R., & Dulai, P. S. (2019). Sensitivity Analysis of Treatment Effect to Unmeasured Confounding in Observational Studies with Survival and Competing Risks Outcomes. arXiv preprint arXiv:1908.01444.
 }
 \author{
-%%  ~~who you are~~
+Rong Huang
 }
 \note{
 %%  ~~further notes~~
@@ -42,16 +52,7 @@ comprSensitivity(x)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (x)
-{
-  }
+comprSensitivity(t, d, Z, X, "stoEM_reg")
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{sensitivity analysis}
+\keyword{competing risks outcomes}

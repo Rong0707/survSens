@@ -59,7 +59,7 @@ compr_EM_variance <- function(data, zetat, zetaz, z.coef, B = 1000){
   #total dim is the sum of number of coefs in t1, t2 and z.
   SS = matrix(0, ncol = dim_total, nrow = dim_total)
   for (b in 1:B){
-    SS = SS + ss(data, zetat, zetaz, U.fit1, U.fit2, z.coef, nx, XZ, X1, bh1, bh2)
+    SS = SS + ss_compr(data, zetat, zetaz, U.fit1, U.fit2, z.coef, nx, XZ, X1, bh1, bh2)
   }
   SS = SS/B
 
@@ -123,7 +123,7 @@ compr_EM_variance <- function(data, zetat, zetaz, z.coef, B = 1000){
               t2.coef = U.fit2$coeff, t2.coef.se=coef.se[(dim_t1 + 1):(dim_t1 + nx + 1)]))
 }
 
-ss <- function(data, zetat, zetaz, U.fit1, U.fit2, z.coef, nx, XZ, X1, bh1, bh2){
+ss_compr <- function(data, zetat, zetaz, U.fit1, U.fit2, z.coef, nx, XZ, X1, bh1, bh2){
   n = dim(data)[1]
   U = rbinom(n,1,data$p) #Sample U
 

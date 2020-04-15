@@ -1,4 +1,4 @@
-comprSensitivity <- function(t, d, Z, X, method, zetaT = seq(-2,2,by=0.5), zetat2 = 0, zetaZ = seq(-2,2,by=0.5), theta = 0.5, B = 100, Bem = 1000){
+comprSensitivity <- function(t, d, Z, X, method, zetaT = seq(-2,2,by=0.5), zetat2 = 0, zetaZ = seq(-2,2,by=0.5), theta = 0.5, B = 50, Bem = 200){
   library(survival)
   library(ggplot2)
   library(directlabels)
@@ -65,7 +65,7 @@ comprSensitivity <- function(t, d, Z, X, method, zetaT = seq(-2,2,by=0.5), zetat
   }
 
   tau1.res$t = tau1.res$tau1/tau1.res$tau1.se
-  tau2.res$t = tau2.res$tau1/tau2.res$tau1.se
+  tau2.res$t = tau2.res$tau2/tau2.res$tau2.se
 
   pdf(paste(method,".pdf", sep = ""), width = 6, height = 5)
   g = ggplot(tau1.res, aes(zetaz, zetat1)) +

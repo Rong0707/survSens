@@ -14,7 +14,7 @@ compr_stoEM_regression <- function(data, zetat, zetaz, theta = 0.5, B = 100, off
     Coeft2 = Coeft2.se = matrix(0, nrow = B, ncol = nx+1)
 
     for (j in 1:B){
-      Usim = SimulateU(t, cbind(d1,d2), Z, X, zetat = zetat, zetaz = zetaz, theta = theta, offset = TRUE)
+      Usim = SimulateU_compr(t, cbind(d1,d2), Z, X, zetat = zetat, zetaz = zetaz, theta = theta, offset = TRUE)
 
       Z.fit = glm(Z ~ X, offset = zetaz * Usim$U, family=binomial(link="probit"))
       Coefz[j,] = Z.fit$coefficients
@@ -39,7 +39,7 @@ compr_stoEM_regression <- function(data, zetat, zetaz, theta = 0.5, B = 100, off
     Coeft2 = matrix(0, nrow = B, ncol = nx+2)
 
     for (j in 1:B){
-      Usim = SimulateU(t, cbind(d1,d2), Z, X, zetat = zetat, zetaz = zetaz, theta = theta, offset = FALSE)
+      Usim = SimulateU_compr(t, cbind(d1,d2), Z, X, zetat = zetat, zetaz = zetaz, theta = theta, offset = FALSE)
 
       Z.fit = glm(Z ~ X + Usim$U, family=binomial(link="probit"))
       Coefz[j,] = Z.fit$coefficients
