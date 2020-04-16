@@ -15,7 +15,7 @@ zetat2 = 0, zetaZ = seq(-2,2,by=0.5), theta = 0.5, B = 100, Bem = 1000)
   \item{t}{survival outcomes with competing risks.}
   \item{d}{indicator of occurrence of event, with \code{d == 0} denotes right censoring, \code{d==1} denotes event of interest, \code{d==2} denotes competing risk.}
   \item{Z}{indicator of treatment.}
-  \item{X}{pre-treatment covariates, will be included in the model as measured confounders.}
+  \item{X}{pre-treatment covariates that will be included in the model as measured confounders.}
   \item{method}{needs to be one of \code{"stoEM_reg"}, \code{"stoEM_IPW"} and \code{"EM_reg"}.}
   \item{zetaT}{range of coefficient of \eqn{U} in the event of interest response model.}
   \item{zetat2}{value of coefficient of \eqn{U} in the competing risk response model}
@@ -25,10 +25,10 @@ zetat2 = 0, zetaZ = seq(-2,2,by=0.5), theta = 0.5, B = 100, Bem = 1000)
   \item{Bem}{iteration used to estimate variance-covariance matrix in the EM algorithm.}
 }
 \details{
-This function performs a dual-parameter sensitivity analysis of treatment effect to unmeasured confounding by either drawing simulated potential confounders \eqn{U} from the conditional distribution of \eqn{U} given observed response, treatment and covariates or the Expectation-Maximization algorithm. We assume \eqn{U} is following \eqn{Bernoulli(\pi)} (default 0.5). Given \eqn{Z}, \eqn{X} and \eqn{U}, the hazard rate of jth type of failure of is modeled using the Cox proportional hazards (PH) regression:
-\deqn{\lambda_j (t|Z, X, U) = \lambda_{j0} (t) exp( \tau_j Z + X' \beta_j + \zeta_j U).}
+This function performs a dual-parameter sensitivity analysis of treatment effect to unmeasured confounding by either drawing simulated potential confounders \eqn{U} from the conditional distribution of \eqn{U} given observed response, treatment and covariates or the Expectation-Maximization algorithm. We assume \eqn{U} is following \eqn{Bernoulli(\pi)} (default 0.5). Given \eqn{Z}, \eqn{X} and \eqn{U}, the hazard rate of jth type of failure is modeled using the Cox proportional hazards (PH) regression:
+\deqn{\lambda_j (t | Z, X, U) = \lambda_{j0} (t) exp( \tau_j Z + X' \beta_j + \zeta_j U).}
 Given \eqn{X} and \eqn{U}, \eqn{Z} follows a generalized linear model:
-\deqn{P(Z=1|X, U) = \Phi(X' \beta_z + \zeta_z U).}
+\deqn{P(Z=1 | X, U) = \Phi(X' \beta_z + \zeta_z U).}
 }
 
 \value{
@@ -55,9 +55,9 @@ Rong Huang
 #load the dataset included in the package
 data(comprdata)
 #stochastic EM with regression
-tau = comprSensitivity(comprdata$t, comprdata$d, comprdata$Z, comprdata$X, "stoEM_reg", B = 10)
+tau = comprSensitivity(comprdata$t, comprdata$d, comprdata$Z, comprdata$X, "stoEM_reg", B = 5)
 #EM with regression
-tau = comprSensitivity(comprdata$t, comprdata$d, comprdata$Z, comprdata$X, "EM_reg", Bem = 100)
+tau = comprSensitivity(comprdata$t, comprdata$d, comprdata$Z, comprdata$X, "EM_reg", Bem = 50)
 }
 \keyword{sensitivity analysis}
 \keyword{competing risks outcomes}
