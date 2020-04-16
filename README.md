@@ -18,7 +18,7 @@ data(survdata)
 #stochastic EM with regression
 tau = survSensitivity(survdata$t, survdata$d, survdata$Z, survdata$X, "stoEM_reg", B = 10)
 #EM with regression
-tau = survSensitivity(survdata$t, survdata$d, survdata$Z, survdata$X, "stoEM_reg", Bem = 100)
+tau = survSensitivity(survdata$t, survdata$d, survdata$Z, survdata$X, "EM_reg", Bem = 100)
 ```
 
 For competing risks outcomes,
