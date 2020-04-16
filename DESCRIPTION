@@ -11,8 +11,6 @@ LazyData: true
 Depends: 
     R (>= 2.10)
 Imports:
-    survival
-    ggplot2
-    directlabels
+    survival, ggplot2, directlabels
 
 
