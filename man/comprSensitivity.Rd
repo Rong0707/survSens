@@ -34,7 +34,7 @@ Given \eqn{X} and \eqn{U}, \eqn{Z} follows a generalized linear model:
 \value{
 \item{tau1}{a data.frame with zetaz, zetat1, zetat2, tau1, tau1.se and t statistic in the event of interest response model.}
 \item{tau2}{a data.frame with zetaz, zetat, zetat2, tau2, tau2.se and t statistic in the competing risks response model.}
-\item{Sensplot}{a contour plot corresponding to the output tau1.}
+\item{Sensplot}{a contour plot corresponding to the output tau1, which will be stored in a seperate pdf file.}
 }
 \references{
 Huang, R., Xu, R., & Dulai, P. S. (2019). Sensitivity Analysis of Treatment Effect to Unmeasured Confounding in Observational Studies with Survival and Competing Risks Outcomes. arXiv preprint arXiv:1908.01444.
@@ -52,7 +52,12 @@ Rong Huang
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-comprSensitivity(t, d, Z, X, "stoEM_reg")
+#load the dataset included in the package
+data(comprdata)
+#stochastic EM with regression
+tau = comprSensitivity(comprdata$t, comprdata$d, comprdata$Z, comprdata$X, "stoEM_reg", B = 10)
+#EM with regression
+tau = comprSensitivity(comprdata$t, comprdata$d, comprdata$Z, comprdata$X, "EM_reg", Bem = 100)
 }
 \keyword{sensitivity analysis}
 \keyword{competing risks outcomes}

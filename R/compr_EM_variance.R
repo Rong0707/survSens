@@ -63,12 +63,6 @@ compr_EM_variance <- function(data, zetat, zetaz, z.coef, B = 1000){
   }
   SS = SS/B
 
-  #used to check vectorized operation.
-  #l2_beta = matrix(0, nrow = nx + 1, ncol = nx + 1)
-  #for(i in 1:n){
-  #  l2_beta = l2_beta + XZ[i,] %*% matrix(XZ[i,], nrow=1) * data$Lambda[i] * exp(data$t.lin[i])
-  #}
-
   #matrix of second derivative consists of 3 blocks for t1, t2, z
   l2 = matrix(0, ncol = dim_total, nrow = dim_total)
 

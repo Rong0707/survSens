@@ -30,7 +30,7 @@ Given \eqn{X} and \eqn{U}, \eqn{Z} follows a generalized linear model:
 }
 \value{
 \item{tau}{a data.frame with zetaz, zetat, tau1, tau1.se and t statistic.}
-\item{Sensplot}{a contour plot corresponding to the output tau.}
+\item{Sensplot}{a contour plot corresponding to the output tau, which will be stored in a seperate pdf file.}
 }
 \references{
 Huang, R., Xu, R., & Dulai, P. S. (2019). Sensitivity Analysis of Treatment Effect to Unmeasured Confounding in Observational Studies with Survival and Competing Risks Outcomes. arXiv preprint arXiv:1908.01444.
@@ -48,7 +48,12 @@ Rong Huang
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-survSensitivity(t, d, Z, X, "stoEM_reg")
+#load the dataset included in the package.
+data(survdata)
+#stochastic EM with regression
+tau = survSensitivity(survdata$t, survdata$d, survdata$Z, survdata$X "stoEM_reg", B = 10)
+#EM with regression
+tau = survSensitivity(survdata$t, survdata$d, survdata$Z, survdata$X "stoEM_reg", Bem = 100)
 }
 \keyword{sensitivity analysis}
 \keyword{survival outcomes}
