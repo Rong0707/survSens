@@ -1,7 +1,7 @@
 survSensitivity <- function(t, d, Z, X, method, zetaT = seq(-2,2,by=0.5), zetaZ = seq(-2,2,by=0.5), theta = 0.5, B = 50, Bem = 200){
-  library(survival)
-  library(ggplot2)
-  library(directlabels)
+  #library(survival)
+  #library(ggplot2)
+  #library(directlabels)
 
   n = length(t)
   data = list(t = t, d = d, Z = Z, X = X)

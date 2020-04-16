@@ -9,7 +9,7 @@ Sensitivity analysis of treatment effect to unmeasured confounding with competin
 }
 \usage{
 comprSensitivity(t, d, Z, X, method, zetaT = seq(-2,2,by=0.5),
-zetat2 = 0, zetaZ = seq(-2,2,by=0.5), theta = 0.5, B = 100, Bem = 1000)
+zetat2 = 0, zetaZ = seq(-2,2,by=0.5), theta = 0.5, B = 50, Bem = 200)
 }
 \arguments{
   \item{t}{survival outcomes with competing risks.}

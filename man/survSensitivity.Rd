@@ -8,7 +8,7 @@ Sensitivity analysis of treatment effect to unmeasured confounding with survival
 }
 \usage{
 survSensitivity(t, d, Z, X, method, zetaT = seq(-2,2,by=0.5),
-zetaZ = seq(-2,2,by=0.5), theta = 0.5, B = 100, Bem = 1000)
+zetaZ = seq(-2,2,by=0.5), theta = 0.5, B = 50, Bem = 200)
 }
 \arguments{
   \item{t}{survival outcomes.}
