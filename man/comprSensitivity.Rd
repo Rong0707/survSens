@@ -22,10 +22,10 @@ zetat2 = 0, zetaZ = seq(-2,2,by=0.5), theta = 0.5, B = 100, Bem = 1000)
   \item{zetaZ}{range of coefficient of \eqn{U} in the treatment model.}
   \item{theta}{marginal probability of \eqn{U=1}.}
   \item{B}{iteration in the stochastic EM algorithm.}
-  \item{Bem}{iteration used to estimate variance-covariance matrix in the EM algorithm.}
+  \item{Bem}{iteration used to estimate the variance-covariance matrix in the EM algorithm.}
 }
 \details{
-This function performs a dual-parameter sensitivity analysis of treatment effect to unmeasured confounding by either drawing simulated potential confounders \eqn{U} from the conditional distribution of \eqn{U} given observed response, treatment and covariates or the Expectation-Maximization algorithm. We assume \eqn{U} is following \eqn{Bernoulli(\pi)} (default 0.5). Given \eqn{Z}, \eqn{X} and \eqn{U}, the hazard rate of jth type of failure is modeled using the Cox proportional hazards (PH) regression:
+This function performs a dual-parameter sensitivity analysis of treatment effect to unmeasured confounding by either drawing simulated potential confounders \eqn{U} from the conditional distribution of \eqn{U} given observed response, treatment and covariates or the Expectation-Maximization algorithm. We assume \eqn{U} is following \eqn{Bernoulli(\pi)} (default 0.5). Given \eqn{Z}, \eqn{X} and \eqn{U}, the hazard rate of the jth type of failure is modeled using the Cox proportional hazards (PH) regression:
 \deqn{\lambda_j (t | Z, X, U) = \lambda_{j0} (t) exp( \tau_j Z + X' \beta_j + \zeta_j U).}
 Given \eqn{X} and \eqn{U}, \eqn{Z} follows a generalized linear model:
 \deqn{P(Z=1 | X, U) = \Phi(X' \beta_z + \zeta_z U).}
@@ -34,7 +34,7 @@ Given \eqn{X} and \eqn{U}, \eqn{Z} follows a generalized linear model:
 \value{
 \item{tau1}{a data.frame with zetaz, zetat1, zetat2, tau1, tau1.se and t statistic in the event of interest response model.}
 \item{tau2}{a data.frame with zetaz, zetat, zetat2, tau2, tau2.se and t statistic in the competing risks response model.}
-\item{Sensplot}{a contour plot corresponding to the output tau1, which will be stored in a seperate pdf file.}
+\item{Sensplot}{a contour plot corresponding to the output tau1, which will be stored in a separate pdf file.}
 }
 \references{
 Huang, R., Xu, R., & Dulai, P. S. (2019). Sensitivity Analysis of Treatment Effect to Unmeasured Confounding in Observational Studies with Survival and Competing Risks Outcomes. arXiv preprint arXiv:1908.01444.
