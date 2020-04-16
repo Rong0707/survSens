@@ -1,13 +1,18 @@
 Package: survSens
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Sensitivity Analysis of Treatment Effect to Unmeasured confounding in Observational Studies with Survival and Competing Risks Outcomes
 Version: 0.1.0
-Author: Who wrote it
+Author: Rong Huang
 Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: It performs a dual-parameter sensitivity analysis of treatment effect to unmeasured confounding in observational studies with either survival or competing risks outcomes.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
 Depends: 
     R (>= 2.10)
+Imports:
+    survival
+    ggplot2
+    directlabels
+
+

@@ -4,7 +4,7 @@
 Sensitivity analysis of treatment effect to unmeasured confounding with survival outcomes.
 }
 \description{
-\code{survSensitivity} performs a dual-parameter sensitivity analysis of treatment effect to unmeasured confounding in observational studies with survival outcomes
+\code{survSensitivity} performs a dual-parameter sensitivity analysis of treatment effect to unmeasured confounding in observational studies with survival outcomes.
 }
 \usage{
 survSensitivity(t, d, Z, X, method, zetaT = seq(-2,2,by=0.5),
@@ -51,9 +51,9 @@ Rong Huang
 #load the dataset included in the package.
 data(survdata)
 #stochastic EM with regression
-tau = survSensitivity(survdata$t, survdata$d, survdata$Z, survdata$X "stoEM_reg", B = 10)
+tau = survSensitivity(survdata$t, survdata$d, survdata$Z, survdata$X, "stoEM_reg", B = 10)
 #EM with regression
-tau = survSensitivity(survdata$t, survdata$d, survdata$Z, survdata$X "stoEM_reg", Bem = 100)
+tau = survSensitivity(survdata$t, survdata$d, survdata$Z, survdata$X, "stoEM_reg", Bem = 100)
 }
 \keyword{sensitivity analysis}
 \keyword{survival outcomes}

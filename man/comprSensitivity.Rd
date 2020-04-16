@@ -5,7 +5,7 @@
 Sensitivity analysis of treatment effect to unmeasured confounding with competing risks outcomes.
 }
 \description{
-\code{comprSensitivity} performs a dual-parameter sensitivity analysis of treatment effect to unmeasured confounding in observational studies with competing risks outcomes
+\code{comprSensitivity} performs a dual-parameter sensitivity analysis of treatment effect to unmeasured confounding in observational studies with competing risks outcomes.
 }
 \usage{
 comprSensitivity(t, d, Z, X, method, zetaT = seq(-2,2,by=0.5),
