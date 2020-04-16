@@ -16,9 +16,9 @@ For survival outcomes,
 #load the dataset included in the package.
 data(survdata)
 #stochastic EM with regression
-tau = survSensitivity(survdata$t, survdata$d, survdata$Z, survdata$X, "stoEM_reg", B = 10)
+tau = survSensitivity(survdata$t, survdata$d, survdata$Z, survdata$X, "stoEM_reg", B = 5)
 #EM with regression
-tau = survSensitivity(survdata$t, survdata$d, survdata$Z, survdata$X, "EM_reg", Bem = 100)
+tau = survSensitivity(survdata$t, survdata$d, survdata$Z, survdata$X, "EM_reg", Bem = 50)
 ```
 
 For competing risks outcomes,
@@ -26,9 +26,9 @@ For competing risks outcomes,
 #load the dataset included in the package
 data(comprdata)
 #stochastic EM with regression
-tau = comprSensitivity(comprdata$t, comprdata$d, comprdata$Z, comprdata$X, "stoEM_reg", B = 10)
+tau = comprSensitivity(comprdata$t, comprdata$d, comprdata$Z, comprdata$X, "stoEM_reg", B = 5)
 #EM with regression
-tau = comprSensitivity(comprdata$t, comprdata$d, comprdata$Z, comprdata$X, "EM_reg", Bem = 100)
+tau = comprSensitivity(comprdata$t, comprdata$d, comprdata$Z, comprdata$X, "EM_reg", Bem = 50)
 ```
 
 Output consists of dataframe(s) for estimated treatment effect(s), as well as a contour plot for visualization.
