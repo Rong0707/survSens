@@ -1,4 +1,4 @@
-survSensitivity <- function(t, d, Z, X, method, zetaT = seq(-2,2,by=0.5), zetaZ = seq(-2,2,by=0.5), theta = 0.5, B = 50, Bem = 200){
+survSensitivity <- function(t, d, Z, X, method, zetaT = seq(-2,2,by=0.5), zetaZ = seq(-2,2,by=0.5), theta = 0.5, B = 50, Bem = 200, contour = TRUE){
   #library(survival)
   #library(ggplot2)
   #library(directlabels)
@@ -55,16 +55,18 @@ survSensitivity <- function(t, d, Z, X, method, zetaT = seq(-2,2,by=0.5), zetaZ 
 
   tau1.res$t = tau1.res$tau1/tau1.res$tau1.se
 
-  pdf(paste(method,".pdf", sep = ""), width = 6, height = 5)
-  g = ggplot(tau1.res, aes(zetaz, zetat)) +
-    stat_contour(aes(z = tau1, colour = ..level..)) +
-    stat_contour(aes(z = t), colour = "red", breaks = c(-1.96,1.96)) +
-    xlab("Coef. on U in model for treatment") +
-    ylab("Coef. on U in model for response") +
-    theme_bw() +
-    annotate("text", x=0, y=0, label = round(Coeft1.noU["Z"],4))
-  print(direct.label(g, method="bottom.pieces"))
-  dev.off()
+  if(contour){
+    pdf(paste(method,".pdf", sep = ""), width = 6, height = 5)
+    g = ggplot(tau1.res, aes(zetaz, zetat)) +
+      stat_contour(aes(z = tau1, colour = ..level..)) +
+      stat_contour(aes(z = t), colour = "red", breaks = c(-1.96,1.96)) +
+      xlab("Coef. on U in model for treatment") +
+      ylab("Coef. on U in model for response") +
+      theme_bw() +
+      annotate("text", x=0, y=0, label = round(Coeft1.noU["Z"],4))
+    print(direct.label(g, method="bottom.pieces"))
+    dev.off()
+  }
 
   return (tau1.res)
 }
