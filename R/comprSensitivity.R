@@ -69,8 +69,8 @@ comprSensitivity <- function(t, d, Z, X, method, zetaT = seq(-2,2,by=0.5), zetat
 
   if(contour){
     pdf(paste(method,".pdf", sep = ""), width = 6, height = 5)
-    g = ggplot(tau1.res, aes(zetaz, zetat1)) +
-      stat_contour(aes(z = tau1, colour = ..level..)) +
+    g = ggplot(tau1.res, aes_string("zetaz", "zetat1")) +
+      stat_contour(aes_string(z = "tau1", colour = "..level..")) +
       stat_contour(aes(z = t), colour = "red", breaks = c(-1.96,1.96)) +
       xlab("Coef. on U in model for treatment") +
       ylab("Coef. on U in model for type 1 event") +

@@ -1,4 +1,5 @@
-exportPattern("^[[:alpha:]]+")
+export(survSensitivity)
+export(comprSensitivity)
 
 import(directlabels)
 import(ggplot2)

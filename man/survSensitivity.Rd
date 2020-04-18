@@ -39,15 +39,6 @@ Huang, R., Xu, R., & Dulai, P. S. (2019). Sensitivity Analysis of Treatment Effe
 \author{
 Rong Huang
 }
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
 #load the dataset included in the package.
 data(survdata)
