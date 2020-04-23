@@ -1,5 +1,6 @@
 export(survSensitivity)
 export(comprSensitivity)
+export(plotsens)
 
 import(directlabels)
 import(ggplot2)
