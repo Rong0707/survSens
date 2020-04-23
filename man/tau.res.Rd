@@ -7,7 +7,7 @@ Sensitivity analysis output example
 \description{
 An example output from \code{survSensitivity}.
 }
-\usage{data(tau.res)}
+\usage{data("tau.res")}
 \format{
   A data frame with 81 observations on the following 5 variables.
   \describe{
