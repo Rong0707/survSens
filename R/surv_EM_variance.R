@@ -11,6 +11,14 @@ surv_EM_variance <- function(data, zetat, zetaz, z.coef, B = 1000){
   XZ = data.matrix(data[,c(4:(3+nx),3)]) #put X and Z together
 
   U.fit1 = coxph(Surv(t,d) ~ XZ + offset(u), data = data)
+  # Calculate partial R-sq of (t, d) ~ u | x, z
+  U.fit1_reduced = coxph(Surv(t,d) ~ XZ, data = data)
+  logtest <- -2 * (U.fit1_reduced$loglik[2] - U.fit1$loglik[2])
+  if (zetat >= 0)
+    partialR2t1 = (1 - exp(-logtest/U.fit1$nevent))
+  else
+    partialR2t1 = - (1 - exp(-logtest/U.fit1$nevent))
+
   bh1 = basehaz(U.fit1, centered=F)
   K = dim(bh1)[1] #number of distinct time
   bh1[,1] = bh1[,1]/exp(mean(data$u))
@@ -76,7 +84,8 @@ surv_EM_variance <- function(data, zetat, zetaz, z.coef, B = 1000){
 
   I_theta = l2 - SS
   coef.se = sqrt(diag(solve(I_theta)))
-  return(list(coef = U.fit1$coeff, coef.se=coef.se[1:(nx+1)]))
+  return (list(coef = U.fit1$coeff, coef.se = coef.se[1:(nx+1)],
+               pR2t1 = partialR2t1))
 }
 
 ss <- function(data, zetat, zetaz, U.fit1, z.coef, nx, XZ, X1, bh1){

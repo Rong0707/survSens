@@ -1,18 +1,18 @@
 Package: survSens
 Type: Package
-Title: Sensitivity Analysis with Time-to-event Outcomes
-Version: 0.1.0
-Date: 2020-04-16
+Title: Sensitivity Analysis with Time-to-Event Outcomes
+Version: 1.1.0
+Date: 2022-11-23
 Author: Rong Huang
 Maintainer: Rong Huang <roh019@ucsd.edu>
-Description: Performs a dual-parameter sensitivity analysis of treatment effect to unmeasured confounding in observational studies with either survival or competing risks outcomes. Huang, R., Xu, R. and Dulai, P.S.(2019) <arXiv:1908.01444>.
+Description: Performs a dual-parameter sensitivity analysis of treatment effect to unmeasured confounding in observational studies with either survival or competing risks outcomes. Huang, R., Xu, R. and Dulai, P.S.(2020) <https://doi.org/10.1002/sim.8672>.
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
 Depends: 
     R (>= 3.4.0)
 Imports:
-    survival, ggplot2, directlabels
+    akima, ggplot2, metR, reshape2, survival
 NeedsCompilation: no
 URL: https://github.com/Rong0707/survSens
 
