@@ -61,16 +61,39 @@ comprSensitivity <- function(t, d, Z, X, method, zetaT = seq(-2,2,by=0.5), zetat
         tau.em = emU_compr(t, cbind(d==1, d==2), Z, X, zetat = c(zetaT[j],zetat2), zetaz = zetaZ[i], theta = theta)
         data1$p = tau.em$p
 
-        # Calculate partial R-sq of z ~ u | x
-        U = rbinom(n,1,tau.em$p)
         partialR2z = c()
+        partialR2t1 = c()
+        partialR2t2 = c()
+        d1 = (d==1)
+        d2 = (d==2)
         for (k in 1:B){
+          U = rbinom(n,1,tau.em$p)
+
+          # Calculate partial R-sq of z ~ u | x
           Z.fit = glm(Z ~ X, offset = zetaZ[i] * U, family=binomial(link="probit"))
           Z.fit_reduced = glm(Z ~ X, family=binomial(link="probit"))
           if (zetaZ[i] >= 0)
             partialR2z[k] = 1 - Z.fit$deviance/Z.fit_reduced$deviance
           else
             partialR2z[k] = - (1 - Z.fit$deviance/Z.fit_reduced$deviance)
+
+          # Calculate partial R-sq of (t, d1) ~ u | x, z
+          t1.fit = coxph(Surv(t, d1) ~ X + Z + offset(zetaT[j] * U))
+          t1.fit_reduced = coxph(Surv(t, d1) ~ X + Z)
+          logtest <- -2 * (t1.fit_reduced$loglik[2] - t1.fit$loglik[2])
+          if (zetaT[j] >= 0)
+            partialR2t1[k] = (1 - exp(-logtest/t1.fit$nevent))
+          else
+            partialR2t1[k] = - (1 - exp(-logtest/t1.fit$nevent))
+
+          # Calculate partial R-sq of (t, d2) ~ u | x, z
+          t2.fit = coxph(Surv(t, d2) ~ X + Z + offset(zetat2 * U))
+          t2.fit_reduced = coxph(Surv(t, d2) ~ X + Z)
+          logtest <- -2 * (t2.fit_reduced$loglik[2] - t2.fit$loglik[2])
+          if (zetat2 >= 0)
+            partialR2t2[k] = (1 - exp(-logtest/t2.fit$nevent))
+          else
+            partialR2t2[k] = - (1 - exp(-logtest/t2.fit$nevent))
         }
 
         nx = length(tau.em$z.coef) - 2
@@ -78,11 +101,11 @@ comprSensitivity <- function(t, d, Z, X, method, zetaT = seq(-2,2,by=0.5), zetat
         tau1.res = rbind(tau1.res,
                          data.frame(zetaz = zetaZ[i], zetat1 = zetaT[j], zetat2 = zetat2,
                                     tau1 = tau.em.final$t1.coef[nx+1], tau1.se = tau.em.final$t1.coef.se[nx+1],
-                                    pR2z = mean(partialR2z), pR2t1 = tau.em.final$pR2t1, pR2t2 = tau.em.final$pR2t2))
+                                    pR2z = mean(partialR2z), pR2t1 = mean(partialR2t1), pR2t2 = mean(partialR2t2)))
         tau2.res = rbind(tau2.res,
                          data.frame(zetaz = zetaZ[i], zetat1 = zetaT[j], zetat2 = zetat2,
                                     tau2 = tau.em.final$t2.coef[nx+1], tau2.se = tau.em.final$t2.coef.se[nx+1],
-                                    pR2z = mean(partialR2z), pR2t1 = tau.em.final$pR2t1, pR2t2 = tau.em.final$pR2t2))
+                                    pR2z = mean(partialR2z), pR2t1 = mean(partialR2t1), pR2t2 = mean(partialR2t2)))
       }
       else{
         print("No method found.")

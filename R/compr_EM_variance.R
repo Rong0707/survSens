@@ -14,14 +14,6 @@ compr_EM_variance <- function(data, zetat, zetaz, z.coef, B = 1000){
 
   # CoxPH model for t1
   U.fit1 = coxph(Surv(t,d1) ~ XZ + offset(u1), data = data)
-  # Calculate partial R-sq of (t, d1) ~ u | x, z
-  U.fit1_reduced = coxph(Surv(t,d1) ~ XZ, data = data)
-  logtest <- -2 * (U.fit1_reduced$loglik[2] - U.fit1$loglik[2])
-  if (zetat[1] >= 0)
-    partialR2t1 = (1 - exp(-logtest/U.fit1$nevent))
-  else
-    partialR2t1 = - (1 - exp(-logtest/U.fit1$nevent))
-
   bh1 = basehaz(U.fit1, centered=F)
   K1 = dim(bh1)[1] #number of distinct time for t1
   bh1[,1] = bh1[,1]/exp(mean(data$u1))
@@ -29,14 +21,6 @@ compr_EM_variance <- function(data, zetat, zetaz, z.coef, B = 1000){
 
   # CoxPH model for t2
   U.fit2 = coxph(Surv(t,d2) ~ XZ + offset(u2), data = data)
-  # Calculate partial R-sq of (t, d2) ~ u | x, z
-  U.fit2_reduced = coxph(Surv(t,d2) ~ XZ, data = data)
-  logtest <- -2 * (U.fit2_reduced$loglik[2] - U.fit2$loglik[2])
-  if (zetat[2] >= 0)
-    partialR2t2 = (1 - exp(-logtest/U.fit2$nevent))
-  else
-    partialR2t2 = - (1 - exp(-logtest/U.fit2$nevent))
-
   bh2 = basehaz(U.fit2, centered=F)
   K2 = dim(bh2)[1] #number of distinct time for t2
   bh2[,1] = bh2[,1]/exp(mean(data$u2))
@@ -130,8 +114,7 @@ compr_EM_variance <- function(data, zetat, zetaz, z.coef, B = 1000){
   I_theta = l2 - SS
   coef.se = sqrt(diag(solve(I_theta)))
   return (list(t1.coef = U.fit1$coeff, t1.coef.se=coef.se[1:(nx + 1)],
-               t2.coef = U.fit2$coeff, t2.coef.se=coef.se[(dim_t1 + 1):(dim_t1 + nx + 1)],
-               pR2t1 = partialR2t1, pR2t2 = partialR2t2))
+               t2.coef = U.fit2$coeff, t2.coef.se=coef.se[(dim_t1 + 1):(dim_t1 + nx + 1)]))
 }
 
 ss_compr <- function(data, zetat, zetaz, U.fit1, U.fit2, z.coef, nx, XZ, X1, bh1, bh2){
