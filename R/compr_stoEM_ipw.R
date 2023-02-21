@@ -22,9 +22,9 @@ compr_stoEM_ipw <- function(data, zetat, zetaz, theta = 0.5, B = 100, offset = T
     # Calculate partial R-sq of z ~ u | x
     Z.fit_reduced = glm(Z ~ X, family=binomial(link="probit"))
     if (zetaz >= 0)
-      partialR2z[j] = 1 - Z.fit$deviance/Z.fit_reduced$deviance
+      partialR2z[j] = 1 - exp((Z.fit$deviance-Z.fit_reduced$deviance)/n)
     else
-      partialR2z[j] = - (1 - Z.fit$deviance/Z.fit_reduced$deviance)
+      partialR2z[j] = - (1 - exp((Z.fit$deviance-Z.fit_reduced$deviance)/n))
 
     #ps = pnorm(cbind(1,X,Usim$U) %*% c(Z.fit$coefficients, zetaz))
     ps = Z.fit$fitted.values

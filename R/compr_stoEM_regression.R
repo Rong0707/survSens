@@ -26,9 +26,9 @@ compr_stoEM_regression <- function(data, zetat, zetaz, theta = 0.5, B = 100, off
       # Calculate partial R-sq of z ~ u | x
       Z.fit_reduced = glm(Z ~ X, family=binomial(link="probit"))
       if (zetaz >= 0)
-        partialR2z[j] = 1 - Z.fit$deviance/Z.fit_reduced$deviance
+        partialR2z[j] = 1 - exp((Z.fit$deviance-Z.fit_reduced$deviance)/n)
       else
-        partialR2z[j] = - (1 - Z.fit$deviance/Z.fit_reduced$deviance)
+        partialR2z[j] = - (1 - exp((Z.fit$deviance-Z.fit_reduced$deviance)/n))
 
       t1.fit = coxph(Surv(t, d1) ~ X + Z + offset(zetat[1] * Usim$U))
       Coeft1[j,] = t1.fit$coefficients
@@ -77,9 +77,9 @@ compr_stoEM_regression <- function(data, zetat, zetaz, theta = 0.5, B = 100, off
       # Calculate partial R-sq of z ~ u | x
       Z.fit_reduced = glm(Z ~ X, family=binomial(link="probit"))
       if (zetaz >= 0)
-        partialR2z[j] = 1 - Z.fit$deviance/Z.fit_reduced$deviance
+        partialR2z[j] = 1 - exp((Z.fit$deviance-Z.fit_reduced$deviance)/n)
       else
-        partialR2z[j] = - (1 - Z.fit$deviance/Z.fit_reduced$deviance)
+        partialR2z[j] = - (1 - exp((Z.fit$deviance-Z.fit_reduced$deviance)/n))
 
       t1.fit = coxph(Surv(t, d1) ~ X + Z + Usim$U)
       Coeft1[j,] = t1.fit$coefficients

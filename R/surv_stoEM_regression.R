@@ -4,6 +4,7 @@ surv_stoEM_regression <- function(data, zetat, zetaz, B = 100, theta = 0.5, offs
   Z = data$Z
   X = data.matrix(data$X)
   nx = dim(X)[2]
+  n = length(t)
 
   if(offset){
     # Record coefficients with simulated U
@@ -22,9 +23,9 @@ surv_stoEM_regression <- function(data, zetat, zetaz, B = 100, theta = 0.5, offs
       # Calculate partial R-sq of z ~ u | x
       Z.fit_reduced = glm(Z ~ X, family=binomial(link="probit"))
       if (zetaz >= 0)
-        partialR2z[j] = 1 - Z.fit$deviance/Z.fit_reduced$deviance
+        partialR2z[j] = 1 - exp((Z.fit$deviance-Z.fit_reduced$deviance)/n)
       else
-        partialR2z[j] = - (1 - Z.fit$deviance/Z.fit_reduced$deviance)
+        partialR2z[j] = - (1 - exp((Z.fit$deviance-Z.fit_reduced$deviance)/n))
 
       t1.fit = coxph(Surv(t, d) ~ X + Z + offset(zetat * Usim$U))
       Coeft1[j,] = t1.fit$coefficients
@@ -59,9 +60,9 @@ surv_stoEM_regression <- function(data, zetat, zetaz, B = 100, theta = 0.5, offs
       # Calculate partial R-sq of z ~ u | x
       Z.fit_reduced = glm(Z ~ X, family=binomial(link="probit"))
       if (zetaz >= 0)
-        partialR2z[j] = 1 - Z.fit$deviance/Z.fit_reduced$deviance
+        partialR2z[j] = 1 - exp((Z.fit$deviance-Z.fit_reduced$deviance)/n)
       else
-        partialR2z[j] = - (1 - Z.fit$deviance/Z.fit_reduced$deviance)
+        partialR2z[j] = - (1 - exp((Z.fit$deviance-Z.fit_reduced$deviance)/n))
 
       t1.fit = coxph(Surv(t, d) ~ X + Z + Usim$U)
       Coeft1[j,] = t1.fit$coefficients

@@ -15,7 +15,7 @@ $$T \sim X + Z$$
 has a log likelihood $l_{0}$, with $k$ events, we calculate partial $R^2_{T \sim U | X, Z}$ similar to $R^2$ in O'Quigley, J., Xu, R., & Stare, J. (2005)
 $$R^2_{T \sim U | X, Z} = 1 - e^{-2(l_1 - l_0)/k}.$$
 
-In the treatment model, according to Cohen, J., Cohen, P., West, S. G., & Aiken, L. S. (2003)., the full model
+In the treatment model, according to Cox, D. R., & Snell, E. J. (1989), the full model
 $$Z \sim X + U$$
 has deviance $DEV_1$,
 $$DEV_1 = -2 \sum[z_i \log(\hat p_i) + (1-z_i)\log(1-\hat p_i)]$$
@@ -28,7 +28,7 @@ $$DEV_0 = -2 \sum[z_i \log(\hat p_i) + (1-z_i)\log(1-\hat p_i)]$$
 where
 $$\hat p_i = P(z_i = 1 | x_i)$$
 then
-$$R^2_{Z \sim U | X} = 1 - DEV_1/DEV_0.$$
+$$R^2_{Z \sim U | X} = 1 - e^{(DEV_1-DEV_0)/n}.$$
 
 The returned partial $R^2$ has a sign, which indicates whether the association is positive or negative. Its absolute value is calculated as above.
 
@@ -81,5 +81,4 @@ Output consists of dataframe(s) for estimated treatment effect(s), as well as a 
 * Cinelli, C., & Hazlett, C. (2020). Making sense of sensitivity: Extending omitted variable bias. Journal of the Royal Statistical Society: Series B (Statistical Methodology), 82(1), 39-67.
 * Huang, R., Xu, R., & Dulai, P. S. (2020). Sensitivity analysis of treatment effect to unmeasured confounding in observational studies with survival and competing risks outcomes. Statistics in Medicine, 39(24), 3397-3411.
 * O'Quigley, J., Xu, R., & Stare, J. (2005). Explained randomness in proportional hazards models. Statistics in medicine, 24(3), 479-489.
-* Cohen, J., Cohen, P., West, S. G., & Aiken, L. S. (2003). Applied multiple regression/correlation analysis for the behavioral sciences.
 * Cox, D. R., & Snell, E. J. (1989). The analysis of binary data, 2nd ed. London: Chapman and Hall.

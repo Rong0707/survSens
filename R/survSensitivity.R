@@ -57,9 +57,9 @@ survSensitivity <- function(t, d, Z, X, method, zetaT = seq(-2,2,by=0.5), zetaZ 
           Z.fit = glm(Z ~ X, offset = zetaZ[i] * U, family=binomial(link="probit"))
           Z.fit_reduced = glm(Z ~ X, family=binomial(link="probit"))
           if (zetaZ[i] >= 0)
-            partialR2z[k] = 1 - Z.fit$deviance/Z.fit_reduced$deviance
+            partialR2z[k] = 1 - exp((Z.fit$deviance-Z.fit_reduced$deviance)/n)
           else
-            partialR2z[k] = - (1 - Z.fit$deviance/Z.fit_reduced$deviance)
+            partialR2z[k] = - (1 - exp((Z.fit$deviance-Z.fit_reduced$deviance)/n))
 
           # Calculate partial R-sq of (t, d) ~ u | x, z
           t1.fit = coxph(Surv(t, d) ~ X + Z + offset(zetaT[j] * U))
