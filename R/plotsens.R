@@ -1,4 +1,5 @@
 plotsens <- function(tau.res, coeff0, partialRsq = FALSE){
+  level<-pR2t1<-pR2z<-tau1<-zetat1<-zetaz<-NULL
   if (partialRsq){
     # Interpolate points for the contour plot.
     fld <- with(tau.res, interp(x = pR2z, y = pR2t1, z = tau1))

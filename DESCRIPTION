@@ -12,7 +12,7 @@ LazyData: true
 Depends: 
     R (>= 3.5.0)
 Imports:
-    akima, ggplot2, metR, reshape2, survival
+    ggplot2, interp, metR, reshape2, survival
 NeedsCompilation: no
 URL: https://github.com/Rong0707/survSens
 
